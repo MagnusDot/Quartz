@@ -1,13 +1,17 @@
 import { app, BrowserWindow, ipcMain, Menu, Tray, nativeImage, ipcRenderer } from 'electron'
 import path from 'node:path'
-import { IpcMain } from 'electron'
+import url from 'node:url'
+
 
 process.env.DIST = path.join(__dirname, '../dist')
 process.env.PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, '../public')
 
 
 let win: BrowserWindow | null
-const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
+const VITE_DEV_SERVER_URL: any = process.env['VITE_DEV_SERVER_URL']
+const indexHtml = process.env.DIST;
+console.log(indexHtml);
+
 
 function createWindow() {
   win = new BrowserWindow({
@@ -25,19 +29,23 @@ function createWindow() {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())
   })
 
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL)
-  } else {
-    // win.loadFile('dist/index.html')
-    win.loadFile(path.join(process.env.DIST, 'index.html'))
-  }
+
+  console.log(app.isPackaged);
+  
+
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, '..', 'dist', 'index.html'),
+      protocol: 'file',
+      slashes: true,
+   }));
+   
 }
 
 
 
 let tray = null
 app.whenReady().then(() => {
-  tray = new Tray(nativeImage.createFromPath(path.join(__dirname,'..' ,'src' , 'assets', 'diamond.png')));
+  tray = new Tray(path.join(__dirname,'..' ,'src' , 'assets', 'diamond.png'));
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Quit Quartz', click: quitApp  },
   ])

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import auth from './middleware/auth';
 import Home from '@/pages/Home.vue';
 import Login from '@/pages/Login.vue';
@@ -6,7 +6,7 @@ import middlewarePipeline from './middleware/pipeline';
 
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-const middleware = to.meta.middleware;
+const middleware: any = to.meta.middleware;
    const context = {
      to,
      from,

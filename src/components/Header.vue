@@ -16,7 +16,6 @@
 
 <script setup>
   import {ipcRenderer} from 'electron';
-  import Header from '../components/Header.vue'
   import CloseIcon from 'vue-material-design-icons/Close.vue';
   import MinimizeIcon from 'vue-material-design-icons/Minus.vue';
   import ResizeIcon from 'vue-material-design-icons/Resize.vue';
