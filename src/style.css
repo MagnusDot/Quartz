@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.drag{
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.no-drag{
+  -webkit-app-region: no-drag;
+}
+
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
